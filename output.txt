@@ -1,0 +1,17 @@
+  INFO: Launching config: "/home/Michael/.config/quickshell/shell.qml"
+  INFO: Shell ID: "1b170dcf6c0cd52caccba87beae591ae" Path ID "1b170dcf6c0cd52caccba87beae591ae"
+  INFO: Saving logs to "/run/user/1000/quickshell/by-id/v81613w4t/log.qslog"
+  WARN scene: QML MouseArea at @shell.qml[234:9]: Detected anchors on an item that is managed by a layout. This is undefined behavior; use Layout.alignment instead.
+  WARN scene: QML MouseArea at @shell.qml[301:9]: Detected anchors on an item that is managed by a layout. This is undefined behavior; use Layout.alignment instead.
+  INFO: Configuration Loaded
+  WARN scene: QML MouseArea at @shell.qml[234:9]: Detected anchors on an item that is managed by a layout. This is undefined behavior; use Layout.alignment instead.
+  WARN scene: QML MouseArea at @shell.qml[301:9]: Detected anchors on an item that is managed by a layout. This is undefined behavior; use Layout.alignment instead.
+  WARN scene: QML MouseArea at @shell.qml[234:9]: Detected anchors on an item that is managed by a layout. This is undefined behavior; use Layout.alignment instead.
+  WARN scene: QML MouseArea at @shell.qml[301:9]: Detected anchors on an item that is managed by a layout. This is undefined behavior; use Layout.alignment instead.
+  WARN scene: QML MouseArea at @shell.qml[234:9]: Detected anchors on an item that is managed by a layout. This is undefined behavior; use Layout.alignment instead.
+  WARN scene: QML MouseArea at @shell.qml[301:9]: Detected anchors on an item that is managed by a layout. This is undefined behavior; use Layout.alignment instead.
+  WARN scene: QML MouseArea at @shell.qml[234:9]: Detected anchors on an item that is managed by a layout. This is undefined behavior; use Layout.alignment instead.
+  WARN scene: QML MouseArea at @shell.qml[301:9]: Detected anchors on an item that is managed by a layout. This is undefined behavior; use Layout.alignment instead.
+  WARN scene: QML MouseArea at @shell.qml[234:9]: Detected anchors on an item that is managed by a layout. This is undefined behavior; use Layout.alignment instead.
+  WARN scene: QML MouseArea at @shell.qml[301:9]: Detected anchors on an item that is managed by a layout. This is undefined behavior; use Layout.alignment instead.
+  WARN scene: QML MouseArea at @shell.qml[234:9]: Detected anchors on an item that is managed by a layout. This is undefined behavior; use Layout.alignment instead.
