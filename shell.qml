@@ -7,13 +7,13 @@ import QtQuick.Layouts
 
 Scope {
   id: root
-  property bool hidden: true // Состояние скрытия бара
-  property bool barHovered: false // Наведена ли мышка на бар
-  property bool tooltipHovered: false // Наведена ли мышка на попап
-  property bool showSeconds: false // Показывать ли секунды в часах
-  property var activeTooltip: null // Активный попап для закрытия предыдущего
+  property bool hidden: true 
+  property bool barHovered: false 
+  property bool tooltipHovered: false 
+  property bool showSeconds: false 
+  property var activeTooltip: null 
 
-  // Функция проверки скрытия: если мышка не на баре и не на попапе, скрываем бар и попап
+  
   function checkHide() {
     if (!barHovered && !tooltipHovered) {
       root.hidden = true
@@ -24,7 +24,7 @@ Scope {
     }
   }
 
-  // Hotspot для триггера: тонкая прозрачная область на левом краю для показа бара при наведении
+  
   Variants {
     model: Quickshell.screens
 
@@ -40,12 +40,12 @@ Scope {
       MouseArea {
         anchors.fill: parent
         hoverEnabled: true
-        onContainsMouseChanged: if (containsMouse) root.hidden = false // Показываем бар при наведении
+        onContainsMouseChanged: if (containsMouse) root.hidden = false 
       }
     }
   }
 
-  // Основной бар: вертикальный слева, скрыт за экраном, появляется с анимацией, как в caelestia (использует Behavior для анимации, PanelWindow для overlay)
+  
   Variants {
     model: Quickshell.screens
 
@@ -56,12 +56,12 @@ Scope {
       anchors { left: true; top: true; bottom: true }
       implicitWidth: 50
       color: "transparent"
-      exclusiveZone: 0 // Overlay, не двигает окна, как в caelestia (exclusiveZone: 0 для некоторых панелей)
+      exclusiveZone: 0 
       margins { left: root.hidden ? -implicitWidth : 0; top: 0; right: 0; bottom: 0 }
 
-      Behavior on margins.left { PropertyAnimation { duration: 200; easing.type: Easing.InOutQuad } } // Анимация появления, как в caelestia (easing OutCubic, but adapted)
+      Behavior on margins.left { PropertyAnimation { duration: 200; easing.type: Easing.InOutQuad } } 
 
-      // Фон: полупрозрачный, как frosted glass в caelestia (transparency base 0.85, layers 0.4)
+      
       Rectangle {
         anchors.fill: parent
         color: "#cc1a1a1a"
@@ -72,8 +72,8 @@ Scope {
         id: barMouseArea
         anchors.fill: parent
         hoverEnabled: true
-        onEntered: root.barHovered = true // Мышка на баре
-        onExited: { root.barHovered = false; root.checkHide() } // Мышка ушла, проверяем скрытие
+        onEntered: root.barHovered = true 
+        onExited: { root.barHovered = false; root.checkHide() } 
       }
 
       Window {
@@ -90,7 +90,7 @@ Scope {
         Behavior on opacity {
           PropertyAnimation {
             duration: 250
-            easing.type: Easing.InOutQuad // Плавное появление, как в caelestia anim durations
+            easing.type: Easing.InOutQuad 
           }
         }
 
@@ -153,8 +153,8 @@ Scope {
 
       ColumnLayout {
         anchors.fill: parent
-        anchors.margins: 5 // Уменьшенные margins
-        spacing: 5 // Ещё меньше расстояние
+        anchors.margins: 5 
+        spacing: 5 
 
         Text {
           id: clock
@@ -173,7 +173,7 @@ Scope {
           MouseArea {
             anchors.fill: parent
             hoverEnabled: true
-            onEntered: { root.showSeconds = true; root.barHovered = true } // Держим barHovered true
+            onEntered: { root.showSeconds = true; root.barHovered = true } 
             onExited: { root.showSeconds = false; root.barHovered = false; root.checkHide() }
             onClicked: {
               let point = clock.mapToGlobal(0, 0)
@@ -227,14 +227,14 @@ Scope {
           }
 
           function updateIcon() {
-            text = connected ? '󰖩' : '󰖪' // Ваша исходная иконка Wi-Fi, как в запросе
+            text = connected ? '󰖩' : '󰖪' 
           }
         }
 
         MouseArea {
           anchors.fill: wifiIcon
           hoverEnabled: true
-          onEntered: root.barHovered = true // Держим barHovered true
+          onEntered: root.barHovered = true 
           onExited: { root.barHovered = false; root.checkHide() }
           onClicked: {
             let point = wifiIcon.mapToGlobal(0, 0)
@@ -301,7 +301,7 @@ Scope {
         MouseArea {
           anchors.fill: batteryIcon
           hoverEnabled: true
-          onEntered: root.barHovered = true // Держим barHovered true
+          onEntered: root.barHovered = true 
           onExited: { root.barHovered = false; root.checkHide() }
           onClicked: {
             let point = batteryIcon.mapToGlobal(0, 0)
@@ -327,7 +327,7 @@ Scope {
       }
 
       Timer {
-        interval: 86400000 // 24 часа
+        interval: 86400000 
         running: true
         repeat: true
         onTriggered: calProc.running = true
