@@ -17,7 +17,7 @@ PanelWindow {
   
   Rectangle {
     id: content
-    width: 30
+    implicitWidth: 30
     color: "white"
     opacity: 0
 
@@ -59,17 +59,43 @@ PanelWindow {
         onTriggered: dateProc.running = true
       }
     }
+
+    Text {
+      id: battery
+
+      anchors {
+        bottom: parent.bottom
+        horizontalCenter: parent.horizontalCenter
+        bottomMargin: 5
+      }
+
+      Process {
+        id: batteryProc
+        command: ['bat', '/sys/class/power_supply/BAT1/capacity']
+        running: true
+        stdout: StdioCollector {
+          onStreamFinished: battery.text = this.text
+        }
+      }
+
+      Timer {
+        interval: 1000
+        running: true
+        repeat: true
+        onTriggered: batteryProc.running = true
+      }
+    }
   }
 
   MouseArea {
     anchors.fill: parent
     hoverEnabled: true
     onEntered: {
-      panel.width = 31
+      panel.implicitWidth = 31
       content.opacity = 1
     }
     onExited: {
-      panel.width = 1
+      panel.implicitWidth = 1
       content.opacity = 0
     }
   }
