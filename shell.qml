@@ -11,14 +11,39 @@ PanelWindow {
   }
 
   id: panel
-  implicitWidth: 1
+  implicitWidth: 30
   exclusiveZone: 0
-  color: "transparent"
-  
+  color: 'transparent'
+
+  Rectangle {
+    id: trigger
+    implicitWidth: 1
+    color: 'transparent'
+
+    anchors {
+      top: parent.top
+      bottom: parent.bottom
+      right: parent.right
+    }
+
+    MouseArea {
+      anchors.fill: parent
+      hoverEnabled: true
+      onEntered: {
+        content.opacity = 1
+        trigger.width = 31
+      }
+      onExited: {
+        content.opacity = 0
+        trigger.width = 1
+      }
+    }
+  }
+
   Rectangle {
     id: content
     implicitWidth: 30
-    color: "white"
+    color: '#ffffff'
     opacity: 0
 
     anchors {
@@ -29,7 +54,7 @@ PanelWindow {
 
     Behavior on opacity {
       NumberAnimation {
-        duration: 300;
+        duration: 750;
         easing.type: Easing.OutCubic
       }
     }
@@ -85,18 +110,58 @@ PanelWindow {
         onTriggered: batteryProc.running = true
       }
     }
-  }
 
-  MouseArea {
-    anchors.fill: parent
-    hoverEnabled: true
-    onEntered: {
-      panel.implicitWidth = 31
-      content.opacity = 1
+    Text {
+      id: bright
+
+      anchors {
+        bottom: parent.bottom
+        horizontalCenter: parent.horizontalCenter
+        bottomMargin: 20
+      }
+
+      Process {
+        id: brightProc
+        command: ['./bright.sh']
+        running: true
+        stdout: StdioCollector {
+          onStreamFinished: bright.text = this.text
+        }
+      }
+
+      Timer {
+        interval: 100
+        running: true
+        repeat: true
+        onTriggered: brightProc.running = true
+      }
     }
-    onExited: {
-      panel.implicitWidth = 1
-      content.opacity = 0
+    
+    Text {
+      id: volume
+
+      anchors {
+        bottom: parent.bottom
+        horizontalCenter: parent.horizontalCenter
+        bottomMargin: 35
+      }
+
+      Process {
+        id: volumeProc
+        command: ['sh', '-c', './pa.sh > ./tmp/pa.txt && cat ./tmp/pa.txt']
+        running: true
+        stdout: StdioCollector {
+          onStreamFinished: volume.text = this.text
+        }
+      }
+
+      Timer {
+        interval: 100
+        running: true
+        repeat: true
+        onTriggered: volumeProc.running = true
+      }
     }
   }
 }
+
