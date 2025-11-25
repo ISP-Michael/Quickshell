@@ -61,6 +61,9 @@ PanelWindow {
 
     Text {
       id: clock
+      font {
+        weight: 900
+      }
 
       anchors {
         top: parent.top
@@ -87,6 +90,9 @@ PanelWindow {
 
     Text {
       id: battery
+      font {
+        weight: 900
+      }
 
       anchors {
         bottom: parent.bottom
@@ -113,6 +119,9 @@ PanelWindow {
 
     Text {
       id: bright
+      font {
+        weight: 900
+      }
 
       anchors {
         bottom: parent.bottom
@@ -122,7 +131,7 @@ PanelWindow {
 
       Process {
         id: brightProc
-        command: ['./bright.sh']
+        command: ['sh', '-c', './scripts/bright.sh > ./tmp/bright.txt && cat ./tmp/bright.txt']
         running: true
         stdout: StdioCollector {
           onStreamFinished: bright.text = this.text
@@ -139,6 +148,9 @@ PanelWindow {
     
     Text {
       id: volume
+      font {
+        weight: 900
+      }
 
       anchors {
         bottom: parent.bottom
@@ -148,7 +160,7 @@ PanelWindow {
 
       Process {
         id: volumeProc
-        command: ['sh', '-c', './pa.sh > ./tmp/pa.txt && cat ./tmp/pa.txt']
+        command: ['sh', '-c', './scripts/pa.sh > ./tmp/pa.txt && cat ./tmp/pa.txt']
         running: true
         stdout: StdioCollector {
           onStreamFinished: volume.text = this.text
