@@ -30,11 +30,11 @@ PanelWindow {
       anchors.fill: parent
       hoverEnabled: true
       onEntered: {
-        content.opacity = 1
-        trigger.width = 31
+        content.x = panel.width - content.width
+        trigger.width = 30
       }
       onExited: {
-        content.opacity = 0
+        content.x = panel.width
         trigger.width = 1
       }
     }
@@ -44,17 +44,13 @@ PanelWindow {
     id: content
     implicitWidth: 30
     color: '#ffffff'
-    opacity: 0
+    width: 30
+    height: parent.height
+    x: panel.width
 
-    anchors {
-      top: parent.top
-      bottom: parent.bottom
-      right: parent.right
-    }
-
-    Behavior on opacity {
+    Behavior on x {
       NumberAnimation {
-        duration: 750;
+        duration: 500;
         easing.type: Easing.OutCubic
       }
     }
@@ -102,7 +98,7 @@ PanelWindow {
 
       Process {
         id: batteryProc
-        command: ['bat', '/sys/class/power_supply/BAT1/capacity']
+        command: ['cat', '/sys/class/power_supply/BAT1/capacity']
         running: true
         stdout: StdioCollector {
           onStreamFinished: battery.text = this.text
