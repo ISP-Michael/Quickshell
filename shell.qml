@@ -19,6 +19,7 @@ PanelWindow {
     id: trigger
     implicitWidth: 1
     color: 'transparent'
+    opacity: 0
 
     anchors {
       top: parent.top
@@ -31,10 +32,12 @@ PanelWindow {
       hoverEnabled: true
       onEntered: {
         content.x = panel.width - content.width
+        content.opacity = 1
         trigger.width = 30
       }
       onExited: {
         content.x = panel.width
+        content.opacity = 0
         trigger.width = 1
       }
     }
@@ -50,7 +53,14 @@ PanelWindow {
 
     Behavior on x {
       NumberAnimation {
-        duration: 500;
+        duration: 400;
+        easing.type: Easing.OutCubic
+      }
+    }
+
+    Behavior on opacity {
+      NumberAnimation {
+        duration: 400;
         easing.type: Easing.OutCubic
       }
     }
@@ -69,7 +79,7 @@ PanelWindow {
 
       Process {
         id: dateProc
-        command: ['date', '+%H\n%M\n%S']
+        command: ['date', '+%H\n%M\n%S\n —\n%d\n%m\n%y']
         running: true
         stdout: StdioCollector {
           onStreamFinished: clock.text = this.text
