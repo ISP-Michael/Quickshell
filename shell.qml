@@ -6,7 +6,7 @@ import QtQuick
 PanelWindow {
   anchors {
     top: true
-    right: true
+    left: true
     bottom: true
   }
 
@@ -24,7 +24,7 @@ PanelWindow {
     anchors {
       top: parent.top
       bottom: parent.bottom
-      right: parent.right
+      left: parent.left
     }
 
     MouseArea {
@@ -36,7 +36,7 @@ PanelWindow {
         trigger.width = 30
       }
       onExited: {
-        content.x = panel.width
+        content.x = -panel.width
         content.opacity = 0
         trigger.width = 1
       }
@@ -49,18 +49,18 @@ PanelWindow {
     color: '#ffffff'
     width: 30
     height: parent.height
-    x: panel.width
+    x: -panel.width
 
     Behavior on x {
       NumberAnimation {
-        duration: 400;
+        duration: 500;
         easing.type: Easing.OutCubic
       }
     }
 
     Behavior on opacity {
       NumberAnimation {
-        duration: 400;
+        duration: 500;
         easing.type: Easing.OutCubic
       }
     }
