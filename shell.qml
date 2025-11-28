@@ -36,9 +36,11 @@ PanelWindow {
         trigger.width = 30
       }
       onExited: {
-        content.x = -panel.width
-        content.opacity = 0
-        trigger.width = 1
+        if (!content.containsMouse) {
+          content.x = -panel.width
+          content.opacity = 0
+          trigger.width = 1
+        }
       }
     }
   }
@@ -50,6 +52,8 @@ PanelWindow {
     width: 30
     height: parent.height
     x: -panel.width
+
+    property bool containsMouse: false
 
     Behavior on x {
       NumberAnimation {
@@ -96,18 +100,28 @@ PanelWindow {
 
     Text {
       id: battery
-      font.weight: 900
+      font {
+        weight: 900
+      }
 
-      property string originalText: ''
+      property string batteryPercentage: ''
+      property string batteryStatus: ''
+      property bool showStatus: false
+
+      text: showStatus ? 
+            (batteryStatus.length > 0 ? batteryStatus.charAt(0) : '') : 
+            batteryPercentage
 
       MouseArea {
         anchors.fill: parent
-        onClicked: {
-          if (battery.text === battery.originalText) {
-            battery.text = batteryStatusCollector.text.charAt(0)
-          } else {
-            battery.text = battery.originalText
-          }
+        hoverEnabled: true
+        onEntered: {
+          battery.showStatus = true
+          content.containsMouse = true
+        }
+        onExited: {
+          battery.showStatus = false
+          content.containsMouse = false
         }
       }
 
@@ -122,12 +136,7 @@ PanelWindow {
         command: ['cat', '/sys/class/power_supply/BAT1/capacity']
         running: true
         stdout: StdioCollector {
-          onStreamFinished: {
-            battery.originalText = this.text
-            if (battery.text === battery.originalText || battery.text === '') {
-              battery.text = this.text
-            }
-          }
+          onStreamFinished: battery.batteryPercentage = this.text
         }
       }
 
@@ -137,6 +146,7 @@ PanelWindow {
         running: true
         stdout: StdioCollector {
           id: batteryStatusCollector
+          onStreamFinished: battery.batteryStatus = this.text
         }
       }
 
