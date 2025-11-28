@@ -1,6 +1,7 @@
 import Quickshell
 import Quickshell.Io
 import QtQuick
+import QtQuick.Controls
 
 
 PanelWindow {
@@ -96,8 +97,19 @@ PanelWindow {
 
     Text {
       id: battery
-      font {
-        weight: 900
+      font.weight: 900
+
+      property string originalText: ''
+
+      MouseArea {
+        anchors.fill: parent
+        onClicked: {
+          if (battery.text === battery.originalText) {
+            battery.text = batteryStatusCollector.text.charAt(0)
+          } else {
+            battery.text = battery.originalText
+          }
+        }
       }
 
       anchors {
@@ -111,7 +123,21 @@ PanelWindow {
         command: ['cat', '/sys/class/power_supply/BAT1/capacity']
         running: true
         stdout: StdioCollector {
-          onStreamFinished: battery.text = this.text
+          onStreamFinished: {
+            battery.originalText = this.text
+            if (battery.text === battery.originalText || battery.text === '') {
+              battery.text = this.text
+            }
+          }
+        }
+      }
+
+      Process {
+        id: batteryStatusProc
+        command: ['cat', '/sys/class/power_supply/BAT1/status']
+        running: true
+        stdout: StdioCollector {
+          id: batteryStatusCollector
         }
       }
 
@@ -119,7 +145,10 @@ PanelWindow {
         interval: 1000
         running: true
         repeat: true
-        onTriggered: batteryProc.running = true
+        onTriggered: {
+          batteryProc.running = true
+          batteryStatusProc.running = true
+        }
       }
     }
 
