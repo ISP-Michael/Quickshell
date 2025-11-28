@@ -1,7 +1,6 @@
 import Quickshell
 import Quickshell.Io
 import QtQuick
-import QtQuick.Controls
 
 
 PanelWindow {
