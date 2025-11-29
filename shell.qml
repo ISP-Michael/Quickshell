@@ -52,6 +52,7 @@ PanelWindow {
     width: 30
     height: parent.height
     x: -panel.width
+    // x: panel.width - content.width
 
     property bool containsMouse: false
 
