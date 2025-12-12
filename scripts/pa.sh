@@ -1,6 +1,6 @@
 text=$(pamixer --get-volume-human)
 if [[ "$text" == "muted" ]]; then
-  echo 
+    echo 
 else
-  echo ${text%?}
+    echo ${text%?}
 fi

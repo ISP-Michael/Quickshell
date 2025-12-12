@@ -74,6 +74,7 @@ PanelWindow {
       id: clock
       font {
         weight: 900
+        pointSize: 9
       }
 
       anchors {
@@ -103,6 +104,7 @@ PanelWindow {
       id: battery
       font {
         weight: 900
+        pointSize: 9
       }
 
       property string batteryPercentage: ''
@@ -166,6 +168,7 @@ PanelWindow {
       id: bright
       font {
         weight: 900
+        pointSize: 9
       }
 
       anchors {
@@ -195,6 +198,7 @@ PanelWindow {
       id: volume
       font {
         weight: 900
+        pointSize: 9
       }
 
       anchors {
