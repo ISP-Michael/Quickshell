@@ -2,7 +2,6 @@ import Quickshell
 import Quickshell.Io
 import QtQuick
 
-
 PanelWindow {
   anchors {
     top: true
