@@ -26,10 +26,15 @@ PanelWindow {
     property bool panelActive: false
 
     Behavior on x { 
-      NumberAnimation { duration: 300; easing.type: Easing.OutCubic } 
+      NumberAnimation {
+        duration: 300; easing.type: Easing.OutCubic
+      } 
     }
+
     Behavior on opacity { 
-      NumberAnimation { duration: 300 } 
+      NumberAnimation {
+        duration: 300
+      } 
     }
 
     MouseArea {
@@ -48,7 +53,10 @@ PanelWindow {
 
     Text {
       id: clock
-      font { weight: 900; pointSize: 9 }
+      font {
+        weight: 900; pointSize: 9
+      }
+
       anchors {
         top: parent.top
         horizontalCenter: parent.horizontalCenter
@@ -59,7 +67,9 @@ PanelWindow {
         id: dateProc
         command: ['date', '+%H\n%M\n%S\n— \n%d\n%m\n%y']
         running: true
-        stdout: StdioCollector { onStreamFinished: clock.text = this.text }
+        stdout: StdioCollector {
+          onStreamFinished: clock.text = this.text
+        }
       }
 
       Timer {
@@ -70,7 +80,9 @@ PanelWindow {
 
     Text {
       id: battery
-      font { weight: 900; pointSize: 9 }
+      font {
+        weight: 900; pointSize: 9
+      }
       property string batteryPercentage: ''
       property string batteryStatus: ''
       property bool showStatus: false
@@ -89,14 +101,18 @@ PanelWindow {
         id: batteryProc
         command: ['cat', '/sys/class/power_supply/BAT1/capacity']
         running: true
-        stdout: StdioCollector { onStreamFinished: battery.batteryPercentage = this.text }
+        stdout: StdioCollector {
+          onStreamFinished: battery.batteryPercentage = this.text
+        }
       }
 
       Process {
         id: batteryStatusProc
         command: ['cat', '/sys/class/power_supply/BAT1/status']
         running: true
-        stdout: StdioCollector { onStreamFinished: battery.batteryStatus = this.text }
+        stdout: StdioCollector {
+          onStreamFinished: battery.batteryStatus = this.text
+        }
       }
 
       Timer {
@@ -110,18 +126,23 @@ PanelWindow {
 
     Text {
       id: bright
-      font { weight: 900; pointSize: 9 }
+      font {
+        weight: 900; pointSize: 9
+      }
+
       anchors {
         bottom: parent.bottom
         horizontalCenter: parent.horizontalCenter
         bottomMargin: 20
       }
+
       Process {
         id: brightProc
         command: ['sh', '-c', '~/.config/quickshell/scripts/bright.sh > ~/.config/quickshell/tmp/bright.txt && cat ~/.config/quickshell/tmp/bright.txt']
         running: true
         stdout: StdioCollector { onStreamFinished: bright.text = this.text }
       }
+
       Timer {
         interval: 100; running: true; repeat: true
         onTriggered: brightProc.running = true
@@ -130,18 +151,23 @@ PanelWindow {
     
     Text {
       id: volume
-      font { weight: 900; pointSize: 9 }
+      font {
+        weight: 900; pointSize: 9
+      }
+
       anchors {
         bottom: parent.bottom
         horizontalCenter: parent.horizontalCenter
         bottomMargin: 35
       }
+
       Process {
         id: volumeProc
         command: ['sh', '-c', '~/.config/quickshell/scripts/pa.sh > ~/.config/quickshell/tmp/pa.txt && cat ~/.config/quickshell/tmp/pa.txt']
         running: true
         stdout: StdioCollector { onStreamFinished: volume.text = this.text }
       }
+
       Timer {
         interval: 100; running: true; repeat: true
         onTriggered: volumeProc.running = true
