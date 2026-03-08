@@ -97,7 +97,9 @@ PanelWindow {
         id: volumeProc
         command: ['sh', '-c', '~/.config/quickshell/scripts/pa.sh > ~/.config/quickshell/tmp/pa.txt && cat ~/.config/quickshell/tmp/pa.txt']
         running: true
-        stdout: StdioCollector { onStreamFinished: volume.text = this.text }
+        stdout: StdioCollector {
+          onStreamFinished: volume.text = this.text
+        }
       }
       Timer {
         interval: 100;
